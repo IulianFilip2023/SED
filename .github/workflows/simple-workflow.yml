@@ -1,0 +1,9 @@
+name: Hello-World
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    # The type of runner that the job will run on
+    runs-on: self-hosted
+    steps:
+      - name: Say Hello World
+        run: echo Hello, world!
