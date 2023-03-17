@@ -19,7 +19,7 @@ jobs:
       uses: docker/metadata-action@v4
       with:
         images: ${{ secrets.DOCKER_USER }}/lb
-        tags: type=raw, value={{date +%F.%H%M%S}}
+        tags: type=raw, value={{date 'YYYYMMDD'}}
 
     - name: Generate build ID
       id: prep
