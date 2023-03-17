@@ -12,6 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+    - name: docker login
+      env: 
+        DOCKER_USER: ${{secrets.DOCKER_USER}}
+        DOCKER_PASS: ${{secrets.DOCKER_PASS}}
+      run: docker login -u $DOCKER_USER -p $DOCKER_PASS 
+        
     - name: Build the Docker image for Nginx
       run: docker build . --file ../apps/nginx/Dockerfile.lb --tag ifilip/lb:$(date +%s) --tag ifilip/lb:latest
     - name: Build the Docker image for Mysql
