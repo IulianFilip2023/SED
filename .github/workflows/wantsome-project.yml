@@ -14,18 +14,19 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v3
 
-    - name: Generate build ID
-      id: prep
+    - name: Docker Login
+      env:
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}
+        DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
       run: |
-          ts=$(date +'%Y-%m-%d')
-          echo "::set-output name=BUILD_ID::${ts}"  >> $GITHUB_STATE
-    
-    
+        docker login -u $DOCKER_USER -p $DOCKER_PASS 
+
     - name: Build Nginx image
-      #uses: actions/checkout@v3
       run: |
-        docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }} 
-        docker build . --file ./apps/nginx/Dockerfile.lb --tag ${{ secrets.DOCKER_USER }}/lb:latest
+        docker build . --file ./apps/nginx/Dockerfile.lb --tag ${{ secrets.DOCKER_USER }}/lb:latest  --tag ${{ secrets.DOCKER_USER }}/lb:$(date +'%Y-%m-%dT%H:%M:%S')
+    
+    - name: Push Nginx image
+      run: docker push ${{ secrets.DOCKER_USER }}/lb
     
 
     #- name: DockerHub Login
