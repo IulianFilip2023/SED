@@ -39,8 +39,7 @@ jobs:
         context: .
         file: ./apps/nginx/Dockerfile.lb 
         push: true
-        tags:  ${{ secrets.DOCKER_USER }}/lb:latest 
-        #${{ secrets.DOCKER_USER }}/lb:${{ steps.prep.outputs.BUILD_ID }}
+        tags:  ${{ secrets.DOCKER_USER }}/lb:latest ${{ secrets.DOCKER_USER }}/lb:${{ steps.prep.outputs.BUILD_ID }}
       #run: docker build . --file ../apps/nginx/Dockerfile.lb --tag ifilip/lb:$(date +%s) --tag ifilip/lb:latest
     #- name: Build the Docker image for Mysql
     #  run: docker build . --file ../../apps/mysql/Dockerfile.db --tag ifilip/db:$(date +%s) --tag ifilip/db:latest
