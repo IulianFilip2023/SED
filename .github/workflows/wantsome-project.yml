@@ -16,10 +16,10 @@ jobs:
     steps:
     - name: Checkout Code
       uses: actions/checkout@v3
-    - uses: actions/cache@v3
+      id: build-nginx-image
       with:
-        path: ${{ env.IMAGE_CACHE_DIR }}/image-nginx.tar
-        key: ${{ secrets.DOCKER_PASS }}
+        image: ${{ secrets.DOCKER_USER }}/lb
+        tags: latest
     - name: Docker Login
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
@@ -27,10 +27,6 @@ jobs:
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASS 
     - name: Build Nginx image
-      id: build-nginx-image
-      with:
-        image: ${{ secrets.DOCKER_USER }}/lb
-        tags: latest
       run: |
         docker build . --file ./apps/nginx/Dockerfile.lb --tag ${{ secrets.DOCKER_USER }}/lb:latest
         
@@ -42,10 +38,10 @@ jobs:
     steps:
     - name: Checkout Code
       uses: actions/checkout@v3
-    - uses: actions/cache@v3
       with:
-        path: ${{ env.IMAGE_CACHE_DIR }}/image-nginx.tar
-        key: ${{ secrets.DOCKER_PASS }}
+        image: ${{ steps.build_docker_images.outputs.image }}
+        tags: ${{ steps.build_docker_images.outputs.tags }} 
+      
     - name: Docker Login
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
@@ -53,10 +49,7 @@ jobs:
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASS 
     - name: Push Nginx image
-      with:
-        image: ${{ steps.build_docker_images.outputs.image }}
-        tags: ${{ steps.build_docker_images.outputs.tags }} 
-      run: docker push ${{ secrets.DOCKER_USER }}/lb:latest
+     run: docker push ${{ secrets.DOCKER_USER }}/lb:latest
 
 
     #- name: DockerHub Login
