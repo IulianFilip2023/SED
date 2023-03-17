@@ -21,6 +21,13 @@ jobs:
         images: ${{ secrets.DOCKER_USER }}/lb
         tags: type=raw, value={{date +%F.%H%M%S}}
 
+    - name: Generate build ID
+      id: prep
+      run: |
+          branch=${GITHUB_REF##*/}
+          ts=$(date +%s)
+          echo "::set-output name=BUILD_ID::${branch}-${ts}"  
+    
     - name: DockerHub Login
       uses: docker/login-action@v1
       with:
@@ -33,7 +40,7 @@ jobs:
         context: .
         file: ./apps/nginx/Dockerfile.lb 
         push: true
-        tags:  ${{ secrets.DOCKER_USER }}/lb:latest ${{ steps.meta.outputs.tags }}
+        tags:  ${{ secrets.DOCKER_USER }}/lb:latest ${{ secrets.DOCKER_USER }}/lb:${{ steps.prep.outputs.BUILD_ID }}
       #run: docker build . --file ../apps/nginx/Dockerfile.lb --tag ifilip/lb:$(date +%s) --tag ifilip/lb:latest
     #- name: Build the Docker image for Mysql
     #  run: docker build . --file ../../apps/mysql/Dockerfile.db --tag ifilip/db:$(date +%s) --tag ifilip/db:latest
