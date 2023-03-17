@@ -77,8 +77,8 @@ Vagrant.configure("2") do |config|
     dd.vm.network "forwarded_port", guest: "8080", host: "8888"
     dd.vm.provision "shell", :inline => $os_packages_update
     dd.vm.provision "shell", :inline => $docker_setup
-    dd.vm.provision "shell", :inline => $githubaction_setup
-    dd.vm.provision "shell", :inline => $githubrunner_script, privileged: false
+    #dd.vm.provision "shell", :inline => $githubaction_setup
+    #dd.vm.provision "shell", :inline => $githubrunner_script, privileged: false
 
     dd.vm.provision 'shell', reboot: true
     dd.vm.provider "virtualbox" do |vb|
