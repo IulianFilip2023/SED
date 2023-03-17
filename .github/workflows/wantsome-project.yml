@@ -19,7 +19,7 @@ jobs:
       uses: docker/metadata-action@v4
       with:
         images: ${{ secrets.DOCKER_USER }}/lb
-        tags: type=raw, value={{date 'YYYYMMDD'}}
+        tags: type=raw, value={{date +%F.%H%M%S}}
 
     - name: DockerHub Login
       uses: docker/login-action@v1
@@ -33,7 +33,7 @@ jobs:
         context: .
         file: ./apps/nginx/Dockerfile.lb 
         push: true
-        tags:  ${{ secrets.DOCKER_USER }}/lb:latest 
+        tags:  ${{ secrets.DOCKER_USER }}/lb:latest ${{ steps.meta.outputs.tags }}
       #run: docker build . --file ../apps/nginx/Dockerfile.lb --tag ifilip/lb:$(date +%s) --tag ifilip/lb:latest
     #- name: Build the Docker image for Mysql
     #  run: docker build . --file ../../apps/mysql/Dockerfile.db --tag ifilip/db:$(date +%s) --tag ifilip/db:latest
