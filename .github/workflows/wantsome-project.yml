@@ -17,8 +17,8 @@ jobs:
     - name: Docker Meta
       id: meta
       uses: docker/metadata-action@v4
-      tags: |
-        type=raw,value={{ date 'YYYYMMDD'}}
+      with:
+        tags: type=raw, value={{date 'YYYYMMDD'}}
 
     - name: DockerHub Login
       uses: docker/login-action@v1
