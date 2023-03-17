@@ -24,7 +24,7 @@ jobs:
     - name: Generate build ID
       id: prep
       run: |
-          ts=$(date ++'%Y-%m-%d')
+          ts=$(date +'%Y-%m-%d')
           echo "::set-output name=BUILD_ID::${ts}"  >> $GITHUB_STATE
     
     - name: DockerHub Login
