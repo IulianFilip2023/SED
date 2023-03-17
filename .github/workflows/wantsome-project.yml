@@ -23,7 +23,7 @@ jobs:
 
     - name: Build Nginx image
       run: |
-        docker build . --file ./apps/nginx/Dockerfile.lb --tag ${{ secrets.DOCKER_USER }}/lb:latest  --tag ${{ secrets.DOCKER_USER }}/lb:$(date +'%Y-%m-%d %H:%M:%S')
+        docker build . --file ./apps/nginx/Dockerfile.lb --tag ${{ secrets.DOCKER_USER }}/lb:latest
     
     - name: Push Nginx image
       run: docker push ${{ secrets.DOCKER_USER }}/lb
