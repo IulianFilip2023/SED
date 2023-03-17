@@ -17,8 +17,8 @@ jobs:
     - name: Docker Meta
       id: meta
       uses: docker/metadata-action@v4
-      image: name/app
       with:
+        images: name/app
         tags: type=raw, value={{date 'YYYYMMDD'}}
 
     - name: DockerHub Login
