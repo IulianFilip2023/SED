@@ -13,7 +13,10 @@ jobs:
     steps:
     - name: Checkout Code
       uses: actions/checkout@v3
-    
+    - name: Docker Meta
+      id: meta
+      tags: value={{ date 'YYYYMMDD'}}
+
     - name: DockerHub Login
       uses: docker/login-action@v1
       with:
@@ -26,7 +29,7 @@ jobs:
         context: .
         file: ./apps/nginx/Dockerfile.lb 
         push: true
-        tags:  ${{ secrets.DOCKER_USER }}/lb:latest ${{ secrets.DOCKER_USER }}/lb:$(date +%s) 
+        tags:  ${{ secrets.DOCKER_USER }}/lb:latest ${{ secrets.DOCKER_USER }}/lb:${{ steps.meta.outputs.tags }}
       #run: docker build . --file ../apps/nginx/Dockerfile.lb --tag ifilip/lb:$(date +%s) --tag ifilip/lb:latest
     #- name: Build the Docker image for Mysql
     #  run: docker build . --file ../../apps/mysql/Dockerfile.db --tag ifilip/db:$(date +%s) --tag ifilip/db:latest
