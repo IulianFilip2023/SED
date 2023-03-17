@@ -13,8 +13,10 @@ jobs:
     steps:
     - name: Checkout Code
       uses: actions/checkout@v3
+
     - name: Docker Meta
       id: meta
+      uses: docker/metadata-action@v4
       tags: value={{ date 'YYYYMMDD'}}
 
     - name: DockerHub Login
