@@ -13,13 +13,18 @@ jobs:
 
   build_docker_images:
     runs-on: ubuntu-latest
+    outputs:
+      artifact_name: ${{ steps.upload_artifact.outputs.artifact_name }}
+    
     steps:
     - name: Checkout Code
       uses: actions/checkout@v3
-      id: build-nginx-image
-      with:
-        image: ${{ secrets.DOCKER_USER }}/lb
-        tags: latest
+    - name: Upload image artifact
+        id: upload_artifact
+        uses: ./
+        with:
+          image: "nginx_image:${{ secrets.DOCKER_USER }}/lb"
+          retention_days: "1"
     - name: Docker Login
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
@@ -35,10 +40,10 @@ jobs:
     needs: build_docker_images
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v3
-      with:
-        image: ${{ steps.build_docker_images.outputs.image }}
-        tags: ${{ steps.build_docker_images.outputs.tags }} 
+      id: download-artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ needs.build_docker_images.artifact_name }}
       
     - name: Docker Login
       env:
