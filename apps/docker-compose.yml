@@ -1,0 +1,54 @@
+version: '3'
+services:
+  lb:
+    image: wantsome/load_balancer:0.0.1
+    depends_on:
+      - app1
+      - app2
+    build:
+      context: .
+      dockerfile: nginx/dockerfile.lb
+    ports:
+      - 80:80
+  app1:
+    image: wantsome/application:0.0.1
+    build:
+      context: .
+      dockerfile: wordpress/dockerfile.wp
+    volumes:
+      - wordpress:/var/www/html/wordpress
+    
+  app2:
+    image: wantsome/application:0.0.1
+    volumes:
+      - wordpress:/var/www/html/wordpress
+
+  db:
+    image: wantsome/mysql:0.0.1
+    build:
+      context: .
+      dockerfile: mysql/dockerfile.db
+    ports:
+      - 3306:3306
+    # environment:
+    #   - MYSQL_DB=wordpress
+    #   - MYSQL_USER=wordpress
+    #   - MYSQL_PASSWORD=wordpress
+    volumes: 
+      - db:/var/lib/msyql/data/
+  
+  # db:
+  #   image: postgres:latest
+  #   restart: always
+  #   environment:
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=postgres
+  #   ports:
+  #     - '5432:5432'
+    # volumes: 
+    #   - db:/var/lib/postgresql/data
+volumes:
+  db:
+    driver: local
+  wordpress:
+    driver: local

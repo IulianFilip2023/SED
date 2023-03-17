@@ -1,0 +1,24 @@
+FROM ubuntu
+
+RUN apt update && DEBIAN_FRONTEND="noninteractive" TZ="Europe/Bucharest" apt install -y tzdata
+
+RUN apt update && \
+    apt install wget unzip nginx php-fpm php-mbstring php-xml php-curl php-gd php-json php-mysql -y
+
+RUN wget https://wordpress.org/latest.zip && \
+    unzip -q latest.zip && \
+    mv wordpress /var/www/html
+
+COPY apps/wordpress/config/wp-config.php /var/www/html/wordpress/
+
+RUN chmod a+w /var/www/html/wordpress/wp-config.php*
+
+COPY apps/wordpress/config/wp.nginx.conf /etc/nginx/sites-available/default
+
+COPY apps/wordpress/config/entrypoint.sh /
+
+RUN rm -rf /latest.zip
+
+ENTRYPOINT [ "bash",  "/entrypoint.sh" ]
+
+EXPOSE 80
