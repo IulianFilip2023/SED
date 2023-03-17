@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Wantsome Project 
 
 on:
   push:
@@ -13,16 +13,16 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image for Nginx
-      run: docker build . --file apps/nginx/Dockerfile.lb --tag ifilip/lb:$(date +%s) --tag ifilip/lb:latest
+      run: docker build . --file ../apps/nginx/Dockerfile.lb --tag ifilip/lb:$(date +%s) --tag ifilip/lb:latest
     - name: Build the Docker image for Mysql
-      run: docker build . --file apps/mysql/Dockerfile.db --tag ifilip/db:$(date +%s) --tag ifilip/db:latest
+      run: docker build . --file ../../apps/mysql/Dockerfile.db --tag ifilip/db:$(date +%s) --tag ifilip/db:latest
     - name: Build the Docker image for Wordpress
       run: docker build . --file apps/wordpress/Dockerfile.wp --tag ifilip/wp:$(date +%s) --tag ifilip/wp:latest
   
-  push:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: {apare se buton}
-    - names: Push docker images for nginx on dockerhub.com
-      run: docker push ...
-          
+  #push:
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #  - uses: {apare se buton}
+  #  - names: Push docker images for nginx on dockerhub.com
+  #    run: docker push ...
+
