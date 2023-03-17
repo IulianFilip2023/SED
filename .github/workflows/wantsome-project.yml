@@ -24,9 +24,8 @@ jobs:
     - name: Generate build ID
       id: prep
       run: |
-          branch=${GITHUB_REF##*/}
           ts=$(date +%s)
-          echo "::set-output name=BUILD_ID::${branch}-${ts}"  
+          echo -c "::set-output name=BUILD_ID::${ts}"  
     
     - name: DockerHub Login
       uses: docker/login-action@v1
