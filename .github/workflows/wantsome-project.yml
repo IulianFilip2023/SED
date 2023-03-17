@@ -22,11 +22,11 @@ jobs:
         
     - name: Build and Push Nginx image to Docker Hub
       uses: docker/build-push-action@v2
-      with:
-        context: .
-        push: true
-        tags:  ifilip/lb:$(date +%s) ifilip/lb:latest
-      #run: docker build . --file ../apps/nginx/Dockerfile.lb --tag ifilip/lb:$(date +%s) --tag ifilip/lb:latest
+      #with:
+      #  context: .
+      #  push: true
+      #  tags:  ifilip/lb:$(date +%s) ifilip/lb:latest
+      run: docker build . --file ../apps/nginx/Dockerfile.lb --tag ifilip/lb:$(date +%s) --tag ifilip/lb:latest
     #- name: Build the Docker image for Mysql
     #  run: docker build . --file ../../apps/mysql/Dockerfile.db --tag ifilip/db:$(date +%s) --tag ifilip/db:latest
     #- name: Build the Docker image for Wordpress
