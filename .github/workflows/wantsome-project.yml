@@ -24,8 +24,8 @@ jobs:
     - name: Generate build ID
       id: prep
       run: |
-          ts=$(date +%s)
-          echo -c "::set-output name=BUILD_ID::${ts}"  
+          ts=$(date ++'%Y-%m-%d')
+          echo "::set-output name=BUILD_ID::${ts}"  
     
     - name: DockerHub Login
       uses: docker/login-action@v1
