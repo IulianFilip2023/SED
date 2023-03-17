@@ -38,8 +38,8 @@ jobs:
         DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASS 
-  #  - name: Push Nginx image
-  #   run: docker push ${{ secrets.DOCKER_USER }}/lb:latest
+    - name: Push Nginx image
+      run: docker push ${{ secrets.DOCKER_USER }}/lb:latest
 
 
     #- name: DockerHub Login
