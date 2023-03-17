@@ -11,19 +11,26 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: docker login
-      env: 
-        DOCKER_USER: ${{secrets.DOCKER_USER}}
-        DOCKER_PASS: ${{secrets.DOCKER_PASS}}
-      run: docker login -u $DOCKER_USER -p $DOCKER_PASS 
+    - name: Checkout Code
+      uses: actions/checkout@v3
+    
+    - name: DockerHub Login
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USER }}
+        password: ${{ secrets.DOCKER_PASS }} 
         
-    - name: Build the Docker image for Nginx
-      run: docker build . --file ../apps/nginx/Dockerfile.lb --tag ifilip/lb:$(date +%s) --tag ifilip/lb:latest
-    - name: Build the Docker image for Mysql
-      run: docker build . --file ../../apps/mysql/Dockerfile.db --tag ifilip/db:$(date +%s) --tag ifilip/db:latest
-    - name: Build the Docker image for Wordpress
-      run: docker build . --file apps/wordpress/Dockerfile.wp --tag ifilip/wp:$(date +%s) --tag ifilip/wp:latest
+    - name: Build and Push Nginx image to Docker Hub
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags:  ifilip/lb:$(date +%s) ifilip/lb:latest
+      #run: docker build . --file ../apps/nginx/Dockerfile.lb --tag ifilip/lb:$(date +%s) --tag ifilip/lb:latest
+    #- name: Build the Docker image for Mysql
+    #  run: docker build . --file ../../apps/mysql/Dockerfile.db --tag ifilip/db:$(date +%s) --tag ifilip/db:latest
+    #- name: Build the Docker image for Wordpress
+    #  run: docker build . --file apps/wordpress/Dockerfile.wp --tag ifilip/wp:$(date +%s) --tag ifilip/wp:latest
   
   #push:
   #  runs-on: ubuntu-latest
