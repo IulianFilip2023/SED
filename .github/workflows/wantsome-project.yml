@@ -7,29 +7,8 @@ on:
     branches: [ "main" ]
 
 jobs:
-
-  build_docker_images:
+  build_and_push_nginx_docker_images:
     runs-on: ubuntu-latest
-    env:
-      IMAGE_NAME: docker
-    steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
-    - name: Docker Login    
-      env:
-        DOCKER_USER: ${{ secrets.DOCKER_USER }}
-        DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
-      run: |
-        docker login -u $DOCKER_USER -p $DOCKER_PASS 
-    - name: Build Nginx image
-      run: |
-        docker build . --file ./apps/nginx/Dockerfile.lb --tag ${{ secrets.DOCKER_USER }}/lb:latest
-
-  push_docker_image:
-    runs-on: ubuntu-latest
-    #container:
-    #  image: node
-    needs: build_docker_images
     steps:
     - name: Checkout Code
       uses: actions/checkout@v3
@@ -39,6 +18,9 @@ jobs:
         DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASS 
+    - name: Build Nginx image
+      run: |
+        docker build . --file ./apps/nginx/Dockerfile.lb --tag ${{ secrets.DOCKER_USER }}/lb:latest
     - name: Push Nginx image
       run: docker push ${{ secrets.DOCKER_USER }}/lb:latest
 
