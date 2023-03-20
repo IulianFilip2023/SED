@@ -10,8 +10,8 @@ jobs:
 
   build_docker_images:
     runs-on: ubuntu-latest
-    #container:
-    #  image: node
+    env:
+      IMAGE_NAME: docker
     steps:
     - name: Checkout Code
       uses: actions/checkout@v3
