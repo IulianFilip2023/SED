@@ -1,15 +1,8 @@
-version: '3'
+#Create MySQL Image for JSP Tutorial Application
+FROM mysql
 
-services:
-  db:
-    image: mysql:8.0
-    container_name: db
-    restart: unless-stopped
-    env_file: .env
-    environment:
-      - MYSQL_DATABASE=wordpress
-    volumes: 
-      - dbdata:/var/lib/mysql
-    command: '--default-authentication-plugin=mysql_native_password'
-    networks:
-      - app-network
+ENV MYSQL_ROOT_PASSWORD ${env.MYSQL_ROOT_PASSWORD}
+
+#ADD jsp_backup.sql /docker-entrypoint-initdb.d
+
+EXPOSE 3306
