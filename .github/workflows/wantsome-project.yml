@@ -25,6 +25,7 @@ jobs:
       run: docker push ${{ secrets.DOCKER_USER }}/lb:latest
 
   build_and_push_mysql_docker_images:
+    needs: build_and_push_nginx_docker_images
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Code
@@ -42,6 +43,7 @@ jobs:
       run: docker push ${{ secrets.DOCKER_USER }}/db:latest
   
   build_and_push_wordpress_docker_images:
+    needs: build_and_push_nginx_docker_images, build_and_push_mysql_docker_images
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Code
