@@ -1,7 +1,7 @@
 #Create MySQL Image for JSP Tutorial Application
 FROM mysql
 
-ENV MYSQL_ROOT_PASSWORD ${env.MYSQL_ROOT_PASSWORD}
+ENV MYSQL_ROOT_PASSWORD: ${env.MYSQL_ROOT_PASSWORD}
 
 #ADD jsp_backup.sql /docker-entrypoint-initdb.d
 
