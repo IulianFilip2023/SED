@@ -58,9 +58,9 @@ SCRIPT
 
 $githubrunner_script = <<SCRIPT
 #!/bin/bash
-echo -e "===> Running GiHub self-hosted runner... "
-cd /vagrant/actions-runner
-#./run.sh 
+cd /vagrant/apps
+echo -e "===> run docker compose... "
+docker compose up
 SCRIPT
 
 Vagrant.configure("2") do |config|
