@@ -1,5 +1,3 @@
-FROM mysql:latest
-
 version: '3'
 
 services:
