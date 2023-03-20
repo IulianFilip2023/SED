@@ -1,0 +1,8 @@
+stages:
+  - build
+
+CI_Build:
+  stage: build
+  script:
+    - echo "Building"
+    - sudo docker images
