@@ -61,6 +61,7 @@ $githubrunner_script = <<SCRIPT
 cd /vagrant/apps
 echo -e "===> run docker compose... "
 docker compose up
+
 SCRIPT
 
 Vagrant.configure("2") do |config|
