@@ -27,6 +27,8 @@ jobs:
 
   push_docker_image:
     runs-on: ubuntu-latest
+    container:
+      image: node
     needs: build_docker_images
     steps:
     - name: Checkout Code
