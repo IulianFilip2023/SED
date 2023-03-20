@@ -37,7 +37,7 @@ jobs:
         docker login -u $DOCKER_USER -p $DOCKER_PASS 
     - name: Build Mysql image
       run: |
-        docker build . --file ./apps/nginx/Dockerfile.db --tag ${{ secrets.DOCKER_USER }}/db:latest
+        docker build . --file ./apps/mysql/Dockerfile.db --tag ${{ secrets.DOCKER_USER }}/db:latest
     - name: Push Mysql image
       run: docker push ${{ secrets.DOCKER_USER }}/db:latest
   
@@ -54,7 +54,7 @@ jobs:
         docker login -u $DOCKER_USER -p $DOCKER_PASS 
     - name: Build Wordpress image
       run: |
-        docker build . --file ./apps/nginx/Dockerfile.wp --tag ${{ secrets.DOCKER_USER }}/wp:latest
+        docker build . --file ./apps/wordpress/Dockerfile.wp --tag ${{ secrets.DOCKER_USER }}/wp:latest
     - name: Push Wordpress image
       run: docker push ${{ secrets.DOCKER_USER }}/wp:latest
 
