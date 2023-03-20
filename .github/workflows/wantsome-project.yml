@@ -16,10 +16,11 @@ jobs:
     steps:
     - name: Checkout Code
       uses: actions/checkout@v3
-    - name: Docker Login
       with:
         context: .
         outputs: type=oci, dest=/tml/image.tar
+    - name: Docker Login
+      
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
         DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
