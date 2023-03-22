@@ -51,7 +51,7 @@ if [[ ! -f actions-runner-linux-x64-$VER.tar.gz ]]; then
   curl -o actions-runner-linux-x64-$VER.tar.gz -sL https://github.com/actions/runner/releases/download/v$VER/actions-runner-linux-x64-$VER.tar.gz
   tar xzf ./actions-runner-linux-x64-$VER.tar.gz
   # start github action runner
-  ./svc.sh start
+  #./svc.sh start
 fi
 
 SCRIPT
@@ -83,7 +83,7 @@ Vagrant.configure("2") do |config|
 
     dd.vm.provision 'shell', reboot: true
     dd.vm.provider "virtualbox" do |vb|
-      vb.gui = true
+      #vb.gui = true
       vb.memory = "4096"
       vb.cpus = "2"
       # Intel PRO/1000 MT Desktop (82540EM) - default

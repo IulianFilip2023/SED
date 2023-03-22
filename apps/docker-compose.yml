@@ -1,15 +1,6 @@
 version: '3'
 services:
-  lb:
-    image: ifilip/lb:latest
-    depends_on:
-      - app1
-      - app2
-    build:
-      context: .
-      dockerfile: nginx/dockerfile.lb
-    ports:
-      - 80:80
+
   app1:
     image: ifilip/wp:latest
     build:
@@ -22,31 +13,33 @@ services:
     image: ifilip/wp:latest
     volumes:
       - wordpress:/var/www/html/wordpress
+  
+  lb:
+    image: ifilip/lb:latest
+    depends_on:
+      - app1
+      - app2
+    build:
+      context: .
+      dockerfile: nginx/dockerfile.lb
+    ports:
+      - 80:80
 
   db:
     image: ifilip/db:latest
+    ports:
+       - "3306:3306"
+    restart: always
     build:
       context: .
       dockerfile: mysql/dockerfile.db
-    ports:
-      - 3306:3306
-    # environment:
-    #   - MYSQL_DB=wordpress
-    #   - MYSQL_USER=wordpress
-    #   - MYSQL_PASSWORD=wordpress
+    environment:
+      - MYSQL_DB=${MYSQL_DB}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes: 
       - db:/var/lib/msyql/data/
   
-  # db:
-  #   image: postgres:latest
-  #   restart: always
-  #   environment:
-  #     - POSTGRES_USER=postgres
-  #     - POSTGRES_PASSWORD=postgres
-  #   ports:
-  #     - '5432:5432'
-    # volumes: 
-    #   - db:/var/lib/postgresql/data
 volumes:
   db:
     driver: local
