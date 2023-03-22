@@ -75,7 +75,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "docker" do |dd|
     dd.vm.hostname = "docker"
     dd.vm.network "private_network", ip: "192.168.56.10", virtualbox__vboxnet: true
-    dd.vm.network "forwarded_port", guest: "8080", host: "8888"
+    dd.vm.network "forwarded_port", guest: "8080", host: "80"
     dd.vm.provision "shell", :inline => $os_packages_update
     dd.vm.provision "shell", :inline => $docker_setup
     #dd.vm.provision "shell", :inline => $githubaction_setup
@@ -85,7 +85,7 @@ Vagrant.configure("2") do |config|
     dd.vm.provider "virtualbox" do |vb|
       #vb.gui = true
       vb.memory = "4096"
-      vb.cpus = "2"
+      vb.cpus = "4"
       # Intel PRO/1000 MT Desktop (82540EM) - default
       #vb.default_nic_type = "82540EM"
       # Intel PRO/1000 T Server (82543GC)

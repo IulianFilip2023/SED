@@ -1,6 +1,23 @@
 version: '3'
 services:
-
+  db:
+    image: ifilip/db:latest
+    ports:
+       - "3306:3306"
+    restart: always
+    build:
+      context: .
+      dockerfile: mysql/dockerfile.db
+    environment:
+      - TZ='Europe/Bucharest'
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DB=${MYSQL_DB}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_HOST=0.0.0.0/0.0.0.0
+    volumes: 
+      - db:/var/lib/msyql/data/
   app1:
     image: ifilip/wp:latest
     build:
@@ -25,20 +42,7 @@ services:
     ports:
       - 80:80
 
-  db:
-    image: ifilip/db:latest
-    ports:
-       - "3306:3306"
-    restart: always
-    build:
-      context: .
-      dockerfile: mysql/dockerfile.db
-    environment:
-      - MYSQL_DB=${MYSQL_DB}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-    volumes: 
-      - db:/var/lib/msyql/data/
+  
   
 volumes:
   db:
