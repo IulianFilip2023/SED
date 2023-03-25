@@ -11,10 +11,10 @@ services:
     environment:
       - TZ='Europe/Bucharest'
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_DB=${MYSQL_DB}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD="webapp:${MYSQL_ROOT_PASSWORD}"
+      - MYSQL_DB="webapp:${MYSQL_DB}"
+      - MYSQL_USER="webapp:${MYSQL_USER}"
+      - MYSQL_PASSWORD="webapp:${MYSQL_PASSWORD}"
       - MYSQL_ROOT_HOST=0.0.0.0/0.0.0.0
     volumes: 
       - db:/var/lib/msyql/data/
@@ -23,6 +23,8 @@ services:
     depends_on:
        - db
     image: ifilip/wp:latest
+    links:
+     - db:mysql
     build:
       context: .
       dockerfile: wordpress/dockerfile.wp
@@ -34,7 +36,11 @@ services:
 
     
   app2:
+    depends_on:
+      - db
     image: ifilip/wp:latest
+    links:
+     - db:mysql
     build:
       context: .
       dockerfile: wordpress/dockerfile.wp
