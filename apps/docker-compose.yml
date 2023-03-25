@@ -18,9 +18,9 @@ services:
       - MYSQL_ROOT_HOST=0.0.0.0/0.0.0.0
     volumes: 
       - db:/var/lib/msyql/data/
-    networks:
-      dc-network:
-        ipv4_address: 172.18.2.13
+    #networks:
+    #  dc-network:
+    #    ipv4_address: 172.18.2.13
 
   app1:
     image: ifilip/wp:latest
@@ -29,9 +29,9 @@ services:
       dockerfile: wordpress/dockerfile.wp
     volumes:
       - wordpress:/var/www/html/wordpress
-    networks:
-      dc-network:
-        ipv4_address: 172.18.2.11
+    #networks:
+    #  dc-network:
+    #    ipv4_address: 172.18.2.11
     
   app2:
     image: ifilip/wp:latest
@@ -40,9 +40,9 @@ services:
       dockerfile: wordpress/dockerfile.wp
     volumes:
       - wordpress:/var/www/html/wordpress
-    networks:
-      dc-network:
-        ipv4_address: 172.18.2.12
+    #networks:
+    #  dc-network:
+    #    ipv4_address: 172.18.2.12
   lb:
     image: ifilip/lb:latest
     depends_on:
@@ -53,9 +53,9 @@ services:
       dockerfile: nginx/dockerfile.lb
     ports:
       - 80:80
-    networks:
-      dc-network:
-        ipv4_address: 172.18.2.10
+    #networks:
+    #  dc-network:
+    #    ipv4_address: 172.18.2.10
 
   
   
@@ -66,10 +66,10 @@ volumes:
     driver: local
 
 
-networks: 
-    dc-network:
-        driver: bridge
-        ipam: 
-            driver: default
-            config: 
-                - subnet: 172.18.2.0/24
+#networks: 
+#    dc-network:
+#        driver: bridge
+#        ipam: 
+#            driver: default
+#            config: 
+#                - subnet: 172.18.2.0/24

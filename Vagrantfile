@@ -48,7 +48,6 @@ $docker_start = <<SCRIPT
 echo -e "===> Start Docker standalone ... "
 cd /vagrant/apps
 docker compose up -d 
-#docker compose up -d db app1 app2 lb
 SCRIPT
 
 
