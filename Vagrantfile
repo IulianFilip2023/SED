@@ -8,7 +8,13 @@ sudo rm -v /etc/apt/apt.conf.d/70debconf
 echo -e "===> Update OS packages "
 sudo apt-get update 
 sudo apt-get upgrade -y
-sudo apt-get install net-tools -y
+sudo apt-get install net-tools curl -y
+echo -e "===> Disabling IPv6 "
+sudo echo "net.ipv6.conf.all.disable_ipv6 = 1\n 
+net.ipv6.conf.default.disable_ipv6 = 1\n
+net.ipv6.conf.lo.disable_ipv6 = 1\n
+net.ipv6.conf.eth0.disable_ipv6 = 1" >> /etc/sysctl.conf
+#sudo sysctl -p
 SCRIPT
 
 $docker_setup = <<SCRIPT
@@ -37,51 +43,27 @@ chown vagrant:vagrant -R  /home/vagrant/.docker
 
 SCRIPT
 
-$githubaction_setup = <<SCRIPT
+$docker_start = <<SCRIPT
 #!/bin/bash
-echo -e "===> Installing GiHub self-hosted runner... "
-if [[ ! -d /vagrant/actions-runner ]]; then
-  echo -e "===> Creating /vagrant/actions-runner folder"
-  mkdir /vagrant/actions-runner
-fi
-cd /vagrant/actions-runner
-VER="2.303.0"
-if [[ ! -f actions-runner-linux-x64-$VER.tar.gz ]]; then
-  echo -e "===> Download actions-runner-linux-x64-$VER.tar.gz"
-  curl -o actions-runner-linux-x64-$VER.tar.gz -sL https://github.com/actions/runner/releases/download/v$VER/actions-runner-linux-x64-$VER.tar.gz
-  tar xzf ./actions-runner-linux-x64-$VER.tar.gz
-  # start github action runner
-  #./svc.sh start
-fi
-
-SCRIPT
-
-$githubrunner_script = <<SCRIPT
-#!/bin/bash
+echo -e "===> Start Docker standalone ... "
 cd /vagrant/apps
-echo -e "===> run docker compose... "
-docker compose up
-
+docker compose up -d 
+#docker compose up -d db app1 app2 lb
 SCRIPT
+
 
 Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/jammy64"
-  #config.vm.box = "ubuntu/focal64"
-  #config.vm.box = "ubuntu/bionic64"
-  #config.vm.box = "generic/ubuntu2204"
-
   config.vm.boot_timeout = 600
   config.vm.provider "virtualbox"
   config.vm.define "docker" do |dd|
     dd.vm.hostname = "docker"
-    dd.vm.network "private_network", ip: "192.168.56.10", virtualbox__vboxnet: true
-    dd.vm.network "forwarded_port", guest: "8080", host: "80"
+    dd.vm.network "private_network", ip: "192.168.56.10", virtualbox__vboxnet: true, ipv6: false
+    dd.vm.network "forwarded_port", guest: "80", host: "8080"
     dd.vm.provision "shell", :inline => $os_packages_update
     dd.vm.provision "shell", :inline => $docker_setup
-    #dd.vm.provision "shell", :inline => $githubaction_setup
-    #dd.vm.provision "shell", :inline => $githubrunner_script, privileged: false
-
     dd.vm.provision 'shell', reboot: true
+    dd.vm.provision "shell", :inline => $docker_start
     dd.vm.provider "virtualbox" do |vb|
       #vb.gui = true
       vb.memory = "4096"
@@ -97,6 +79,8 @@ Vagrant.configure("2") do |config|
       vb.customize ["modifyvm", :id, "--graphicscontroller", "vmsvga"]
       vb.customize ["modifyvm", :id, "--vram", "32"]
       vb.customize ["modifyvm", :id, "--audio", "none"]
+      # enable promiscuous mode on the public network
+      vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
     end
   end
 end

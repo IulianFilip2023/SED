@@ -17,6 +17,9 @@ COPY apps/wordpress/config/wp.nginx.conf /etc/nginx/sites-available/default
 
 COPY apps/wordpress/config/entrypoint.sh /
 
+RUN chown -R www-data:www-data /var/www/html/wordpress/
+RUN chmod -R 755 /var/www/html/wordpress/
+
 RUN rm -rf /latest.zip
 
 ENTRYPOINT [ "bash",  "/entrypoint.sh" ]
