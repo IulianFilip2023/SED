@@ -15,7 +15,7 @@ services:
       - MYSQL_DB="webapp:${MYSQL_DB}"
       - MYSQL_USER="webapp:${MYSQL_USER}"
       - MYSQL_PASSWORD="webapp:${MYSQL_PASSWORD}"
-      - MYSQL_ROOT_HOST=0.0.0.0/0.0.0.0
+      #- MYSQL_ROOT_HOST=0.0.0.0/0.0.0.0
     volumes: 
       - db:/var/lib/msyql/data/
 
