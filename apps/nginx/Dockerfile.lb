@@ -4,12 +4,6 @@ RUN apt update
 
 RUN apt install nginx -y
 
-RUN apt update && DEBIAN_FRONTEND="noninteractive" TZ="Europe/Bucharest" apt install -y tzdata
-
-RUN apt update && \
-    apt install wget unzip nginx php-fpm php-mbstring php-xml php-curl php-gd php-json php-mysql -y
-
-
 COPY apps/nginx/config/lb.nginx.conf /etc/nginx/sites-available/default
 
 ENTRYPOINT [ "nginx" , "-g"  ,"daemon off;"]
