@@ -5,7 +5,7 @@ RUN apt update && DEBIAN_FRONTEND="noninteractive" TZ="Europe/Bucharest" apt ins
 RUN apt update && \
     apt install wget unzip nginx php-fpm php-mbstring php-xml php-curl php-gd php-json php-mysql -y
 
-RUN apt install -y iputils-ping net-tools
+RUN apt install -y iputils-ping net-tools vim
 
 RUN wget https://wordpress.org/latest.zip && \
     unzip -q latest.zip && \

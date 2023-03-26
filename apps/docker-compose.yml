@@ -29,7 +29,7 @@ services:
      - db:mysql
     build:
       context: .
-      dockerfile: wordpress/dockerfile.wp
+      #dockerfile: wordpress/dockerfile.wp
     volumes:
       - wordpress:/var/www/html/wordpress
     restart: always
@@ -45,7 +45,7 @@ services:
      - db:mysql
     build:
       context: .
-      dockerfile: wordpress/dockerfile.wp
+      #dockerfile: wordpress/dockerfile.wp
     volumes:
       - wordpress:/var/www/html/wordpress
 
@@ -56,7 +56,7 @@ services:
       - app2
     build:
       context: .
-      dockerfile: nginx/dockerfile.lb
+      #dockerfile: nginx/dockerfile.lb
     ports:
       - 80:80
   
