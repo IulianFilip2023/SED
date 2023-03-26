@@ -48,7 +48,7 @@ $docker_start = <<SCRIPT
 echo -e "===> Start Docker standalone ... "
 cd /vagrant/apps
 #docker network create -d bridge --subnet 192.168.50.0/24 --gateway 192.168.50.1 wantsomenet
-docker compose up -d 
+#docker compose up -d 
 SCRIPT
 
 
