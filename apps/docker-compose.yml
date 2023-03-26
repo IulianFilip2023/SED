@@ -13,10 +13,10 @@ services:
     environment:
       - TZ='Europe/Bucharest'
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - MYSQL_DB=${MYSQL_DB}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      #- MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      #- MYSQL_DB=${MYSQL_DB}
+      #- MYSQL_USER=${MYSQL_USER}
+      #- MYSQL_PASSWORD=${MYSQL_PASSWORD}
       #- MYSQL_ROOT_HOST=0.0.0.0/0.0.0.0
     volumes: 
       - db:/var/lib/msyql/data/
