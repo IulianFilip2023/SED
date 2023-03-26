@@ -12,6 +12,6 @@ ENV MYSQL_DB=$MYSQL_DB
 #ENV MYSQL_PASSWORD=$MYSQL_PASSWORD
 #ENV MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
 
-COPY ./sql-scripts/ /docker-entrypoint-initdb.d/
+COPY apps/mysql/sql-scripts/ /docker-entrypoint-initdb.d/
 
 EXPOSE 3306
