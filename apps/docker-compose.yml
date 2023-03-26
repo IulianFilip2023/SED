@@ -5,9 +5,11 @@ services:
     ports:
        - "3306:3306"
     restart: always
+    env_file:
+      - /apps/.env
     build:
       context: .
-      dockerfile: mysql/dockerfile.db
+    #  dockerfile: mysql/dockerfile.db
     environment:
       - TZ='Europe/Bucharest'
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
