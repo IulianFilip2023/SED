@@ -3,10 +3,10 @@ FROM mysql:latest
 RUN chown -R mysql:root /var/lib/mysql/
 
 ENV MYSQL_DB=${MYSQL_DB}
-#ENV MYSQL_USER=${MYSQL_USER}
-#ENV MYSQL_PASSWORD=${MYSQL_PASSWORD}
-#ENV MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+ENV MYSQL_USER=${MYSQL_USER}
+ENV MYSQL_PASSWORD=${MYSQL_PASSWORD}
+ENV MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
 
-COPY apps/mysql/sql-scripts/ /docker-entrypoint-initdb.d/
+COPY apps/mysql/sql-scripts/wantsome.sql /docker-entrypoint-initdb.d/
 
 EXPOSE 3306

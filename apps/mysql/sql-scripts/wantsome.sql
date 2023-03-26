@@ -1,3 +1,7 @@
+CREATE DATABASE IF NOT EXISTS `wp_db`;
+USE `wp_db`;
+
+
 -- MariaDB dump 10.19  Distrib 10.6.11-MariaDB, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: wordpress_db
