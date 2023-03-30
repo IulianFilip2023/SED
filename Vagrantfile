@@ -67,7 +67,7 @@ Vagrant.configure("2") do |config|
     dd.vm.provider "virtualbox" do |vb|
       #vb.gui = true
       vb.memory = "4096"
-      vb.cpus = "4"
+      vb.cpus = "2"
       # Intel PRO/1000 MT Desktop (82540EM) - default
       #vb.default_nic_type = "82540EM"
       # Intel PRO/1000 T Server (82543GC)
@@ -80,7 +80,7 @@ Vagrant.configure("2") do |config|
       vb.customize ["modifyvm", :id, "--vram", "32"]
       vb.customize ["modifyvm", :id, "--audio", "none"]
       # enable promiscuous mode on the public network
-      vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
+      #vb.customize ["modifyvm", :id, "--nicpromisc3", "allow-all"]
     end
   end
 end
