@@ -1,5 +1,5 @@
 CREATE DATABASE IF NOT EXISTS `wp_db`;
-GRANT ALL PRIVILEGES ON `wp_db`.* TO 'wp_user'@'*';
+GRANT ALL PRIVILEGES ON `wp_db`.* TO `wp_user`@`%`;
 FLUSH PRIVILEGES;
 USE `wp_db`;
 
