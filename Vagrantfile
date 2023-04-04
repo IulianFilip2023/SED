@@ -48,15 +48,15 @@ $docker_start = <<SCRIPT
 echo -e "===> Start Docker standalone ... "
 cd /vagrant/apps
 #docker network create -d bridge --subnet 192.168.50.0/24 --gateway 192.168.50.1 wantsomenet
-#docker compose up -d 
-docker compose create db
-docker compose start db
-docker compose create app1
-docker compose start app1
-docker compose create app2
-docker compose start app2
-docker compose create lb
-docker compose start lb
+docker compose up -d 
+#docker compose create db
+#docker compose start db
+#docker compose create app1
+#docker compose start app1
+#docker compose create app2
+#docker compose start app2
+#docker compose create lb
+#docker compose start lb
 SCRIPT
 
 

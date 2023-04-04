@@ -35,8 +35,8 @@ services:
     volumes:
       - wordpress:/var/www/html/wordpress
     restart: always
-    ports:
-      - 8080:80
+    #ports:
+    #  - '8000:80'
     environment:
       WORDPRESS_DB_HOST: db:3306
 
@@ -54,8 +54,8 @@ services:
     volumes:
       - wordpress:/var/www/html/wordpress
     restart: always
-    ports:
-      - 8080:80
+    #ports:
+    #  - '8000:80'
 
   lb:
     image: ifilip/lb:latest
