@@ -9,18 +9,18 @@ RUN apt update && \
 
 RUN wget https://wordpress.org/latest.zip && \
     unzip -q latest.zip && \
-    mv wordpress /var/www/html
+    mv wordpress/* /var/www/html/
 
-COPY apps/wordpress/config/wp-config.php /var/www/html/wordpress/
+COPY apps/wordpress/config/wp-config.php /var/www/html/
 
-RUN chmod a+w /var/www/html/wordpress/wp-config.php*
+RUN chmod a+w /var/www/html/wp-config.php*
 
 COPY apps/wordpress/config/wp.nginx.conf /etc/nginx/sites-available/default
 
 COPY apps/wordpress/config/entrypoint.sh /
 
-RUN chown -R www-data:www-data /var/www/html/wordpress/
-RUN chmod -R 755 /var/www/html/wordpress/
+RUN chown -R www-data:www-data /var/www/html/
+RUN chmod -R 755 /var/www/html/
 
 RUN rm -rf /latest.zip
 

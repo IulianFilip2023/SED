@@ -37,7 +37,7 @@ sudo adduser vagrant docker
 sudo usermod -aG docker vagrant
 
 mkdir -p /home/vagrant/.docker/cli-plugins/
-curl -sSL https://github.com/docker/compose/releases/download/v2.16.0/docker-compose-linux-x86_64 -o /home/vagrant/.docker/cli-plugins/docker-compose
+curl -sSL https://github.com/docker/compose/releases/download/v2.17.2/docker-compose-linux-x86_64 -o /home/vagrant/.docker/cli-plugins/docker-compose
 chmod +x /home/vagrant/.docker/cli-plugins/docker-compose
 chown vagrant:vagrant -R  /home/vagrant/.docker
 
@@ -49,14 +49,6 @@ echo -e "===> Start Docker standalone ... "
 cd /vagrant/apps
 #docker network create -d bridge --subnet 192.168.50.0/24 --gateway 192.168.50.1 wantsomenet
 docker compose up -d 
-#docker compose create db
-#docker compose start db
-#docker compose create app1
-#docker compose start app1
-#docker compose create app2
-#docker compose start app2
-#docker compose create lb
-#docker compose start lb
 SCRIPT
 
 
