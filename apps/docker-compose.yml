@@ -33,7 +33,7 @@ services:
       context: .
       #dockerfile: wordpress/dockerfile.wp
     volumes:
-      - wordpress:/var/www/html/wordpress
+      - wordpress1:/var/www/html/wordpress
     restart: always
     #ports:
     #  - '8000:80'
@@ -52,7 +52,7 @@ services:
       context: .
       #dockerfile: wordpress/dockerfile.wp
     volumes:
-      - wordpress:/var/www/html/wordpress
+      - wordpress2:/var/www/html/wordpress
     restart: always
     #ports:
     #  - '8000:80'
@@ -72,5 +72,7 @@ services:
 volumes:
   db:
     driver: local
-  wordpress:
+  wordpress1:
+    driver: local
+  wordpress2:
     driver: local
