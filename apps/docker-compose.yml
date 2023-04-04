@@ -35,6 +35,8 @@ services:
     volumes:
       - wordpress:/var/www/html/wordpress
     restart: always
+    ports:
+      - 80
     environment:
       WORDPRESS_DB_HOST: db:3306
 
@@ -51,6 +53,9 @@ services:
       #dockerfile: wordpress/dockerfile.wp
     volumes:
       - wordpress:/var/www/html/wordpress
+    restart: always
+    ports:
+      - 80
 
   lb:
     image: ifilip/lb:latest
