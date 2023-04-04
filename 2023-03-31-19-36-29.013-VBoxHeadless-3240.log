@@ -1,0 +1,12 @@
+Log created: 2023-03-31T19:36:29.137901000Z
+Process ID:  3240 (0xca8)
+Parent PID:  1 (0x1)
+Executable:  /usr/lib/virtualbox/VBoxHeadless
+Arg[0]: /usr/lib/virtualbox/VBoxHeadless
+Arg[1]: --comment
+Arg[2]: SED_docker_1680290727117_71258
+Arg[3]: --startvm
+Arg[4]: 12b7f5c3-4bb6-41e0-90dc-fb7ddb4bb24b
+Arg[5]: --vrde
+Arg[6]: config
+AddRef: illegal refcnt=3221225469 state=2
