@@ -2,6 +2,7 @@ version: '3'
 services:
   db:
     image: ifilip/db:latest
+    container_name: db
     ports:
        - "3306:3306"
     restart: always
@@ -25,6 +26,7 @@ services:
     depends_on:
        - db
     image: ifilip/wp:latest
+    container_name: app1
     links:
      - db:mysql
     build:
@@ -41,6 +43,7 @@ services:
     depends_on:
       - db
     image: ifilip/wp:latest
+    container_name: app2
     links:
      - db:mysql
     build:
@@ -51,6 +54,7 @@ services:
 
   lb:
     image: ifilip/lb:latest
+    container_name: lb
     depends_on:
       - app1
       - app2
