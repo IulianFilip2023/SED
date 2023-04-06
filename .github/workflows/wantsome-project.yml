@@ -60,3 +60,4 @@ jobs:
     - name: Push Wordpress image
       run: docker push ${{ secrets.DOCKER_USER }}/wp:latest
 
+
